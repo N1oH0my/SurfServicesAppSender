@@ -3,6 +3,7 @@ package ru.shalkoff.vsu_lesson2_2024.application
 import android.app.Application
 import android.content.Intent
 import android.util.Log
+import android.widget.Toast
 
 class App : Application() {
 
@@ -11,6 +12,7 @@ class App : Application() {
         //TODO 3
         // Почему не выводиться этот лог в Logcat?
         // Сделайте так, чтобы он выводился
-        Log.d("App", "Вызвался метод onCreate()")
+        //Toast.makeText(this, "Вызвался метод onCreate()", Toast.LENGTH_SHORT).show()
+        Log.i("APPSTART", "Вызвался метод onCreate()")
     }
 }

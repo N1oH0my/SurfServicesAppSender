@@ -1,5 +1,6 @@
 package ru.shalkoff.vsu_lesson2_2024.activity
 
+import android.bluetooth.BluetoothAdapter
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
@@ -13,10 +14,12 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import ru.shalkoff.vsu_lesson2_2024.R
 import ru.shalkoff.vsu_lesson2_2024.receiver.AirplaneModeReceiver
+import ru.shalkoff.vsu_lesson2_2024.receiver.BluetoothStateReceiver
 
 class ThirdActivity : AppCompatActivity() {
 
     private val airplaneModeReceiver = AirplaneModeReceiver()
+    private val bluetoothStateReceiver = BluetoothStateReceiver()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,8 +37,15 @@ class ThirdActivity : AppCompatActivity() {
         }
 
         // Регистрация BroadcastReceiver'а для ACTION_AIRPLANE_MODE_CHANGED
-        val filter = IntentFilter(Intent.ACTION_AIRPLANE_MODE_CHANGED)
-        registerReceiver(airplaneModeReceiver, filter)
+        val filterAirplane = IntentFilter(Intent.ACTION_AIRPLANE_MODE_CHANGED)
+        registerReceiver(airplaneModeReceiver, filterAirplane)
+
+        initSenderBroadcastMessage()
+
+        // Регистрация BroadcastReceiver'а для Bluetooth
+        val filterBluetooth = IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED)
+        registerReceiver(bluetoothStateReceiver, filterBluetooth)
+
 
         initSenderBroadcastMessage()
     }
@@ -43,6 +53,7 @@ class ThirdActivity : AppCompatActivity() {
     override fun onDestroy() {
         // Обязательно отменяем регистрацию BroadcastReceiver'а
         unregisterReceiver(airplaneModeReceiver)
+        unregisterReceiver(bluetoothStateReceiver)
         super.onDestroy()
     }
 

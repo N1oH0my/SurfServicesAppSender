@@ -41,10 +41,15 @@ class MainActivity : AppCompatActivity() {
         initFetchContacts()
     }
 
+
+
     private fun openSecondActivity() {
         val user = User("Vladimir", 29)
         //TODO 1
         // Откройте SecondActivity и передайте туда объект user
+        val intent = Intent(this, SecondActivity::class.java)
+        intent.putExtra("USER_INFO_KEY", user)
+        startActivity(intent)
     }
 
     private fun initForegroundService() {
@@ -52,6 +57,8 @@ class MainActivity : AppCompatActivity() {
         startForegroundServiceBtn.setOnClickListener {
             //TODO 2
             // Напишите код для запуска ForegroundService
+            val serviceIntent = Intent(this, ForegroundService::class.java)
+            ContextCompat.startForegroundService(this, serviceIntent)
         }
 
         val stopForegroundServiceBtn = findViewById<Button>(R.id.stop_foreground_service_btn)
