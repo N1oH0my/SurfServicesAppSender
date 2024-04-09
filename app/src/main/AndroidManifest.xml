@@ -44,7 +44,8 @@
             android:name=".provider.ShareSecretKeyContentProvider"
             android:authorities="dev.surf.android.provider"
             android:enabled="true"
-            android:exported="false" />
+            android:exported="true"
+            />
 
         <service
             android:name=".services.BoundService"
@@ -53,6 +54,8 @@
             android:name=".services.ForegroundService"
             android:foregroundServiceType="specialUse" />
         <service android:name=".services.BackgroundService" />
+
+
 
     </application>
 

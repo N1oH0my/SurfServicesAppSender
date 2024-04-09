@@ -13,6 +13,6 @@ class App : Application() {
         // Почему не выводиться этот лог в Logcat?
         // Сделайте так, чтобы он выводился
         //Toast.makeText(this, "Вызвался метод onCreate()", Toast.LENGTH_SHORT).show()
-        Log.i("APPSTART", "Вызвался метод onCreate()")
+        Log.i("APPCREATE", "Вызвался метод onCreate()")
     }
 }
