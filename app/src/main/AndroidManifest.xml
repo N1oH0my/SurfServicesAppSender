@@ -13,6 +13,9 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.WRITE_CONTACTS" />
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+
     <application
         android:name=".application.App"
         android:allowBackup="true"
@@ -43,6 +46,12 @@
         <provider
             android:name=".provider.ShareSecretKeyContentProvider"
             android:authorities="dev.surf.android.provider"
+            android:enabled="true"
+            android:exported="true"
+            />
+        <provider
+            android:name=".provider.ShareImagesContentProvider"
+            android:authorities="dev.surf.android.images.provider"
             android:enabled="true"
             android:exported="true"
             />

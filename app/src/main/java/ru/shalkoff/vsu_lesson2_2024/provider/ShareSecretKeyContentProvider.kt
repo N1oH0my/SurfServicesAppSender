@@ -44,7 +44,7 @@ class ShareSecretKeyContentProvider : ContentProvider() {
         return null
     }
 
-    override fun getType(uri: Uri): String? {
+        override fun getType(uri: Uri): String? {
         // Возвращаем MIME-тип данных
         return "text/plain"
     }
