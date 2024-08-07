@@ -8,9 +8,21 @@ import android.database.MatrixCursor
 import android.net.Uri
 import android.util.Log
 
+
+object ImageProvider {
+    private var lastImageUri: Uri? = null
+
+    fun updateImage(uri: Uri?) {
+        lastImageUri = uri
+    }
+
+    fun getImage(): Uri? {
+        return lastImageUri
+    }
+}
+
 class ShareImagesContentProvider: ContentProvider() {
 
-    private var lastImageUri: Uri? = null
     companion object {
         private const val AUTHORITY = "dev.surf.android.images.provider"
         private const val PATH_STRING = "image"
@@ -40,8 +52,9 @@ class ShareImagesContentProvider: ContentProvider() {
             TEXT_ID -> {
                 val columns = arrayOf("image")
                 val cursor = MatrixCursor(columns)
+                val lastImageUri = ImageProvider.getImage()
                 lastImageUri?.let {
-                    cursor.addRow(arrayOf(it))
+                    cursor.addRow(arrayOf(it.toString()))
                     cursor
                 }
             }
@@ -53,7 +66,7 @@ class ShareImagesContentProvider: ContentProvider() {
     }
 
     override fun getType(uri: Uri): String? {
-        return "image/png"
+        return "text/plain"
     }
 
     override fun insert(uri: Uri, values: ContentValues?): Uri? {
@@ -75,7 +88,7 @@ class ShareImagesContentProvider: ContentProvider() {
 
     fun updateImage(uri: Uri?) {
         if (uri != null) {
-            lastImageUri = uri
+            ImageProvider.updateImage(uri)
             Log.d("ShareImagesContentProvider", "Добавлено изображение: $uri")
         } else {
             Log.e("ShareImagesContentProvider", "Ошибка: URI изображения равен null")
